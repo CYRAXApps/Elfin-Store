@@ -1,0 +1,22 @@
+# Robots.txt for ELECTRO STORE
+User-agent: *
+Allow: /
+Allow: /shop
+Allow: /product/
+Allow: /about
+Allow: /contact
+Allow: /privacy
+Allow: /terms
+Allow: /shipping-policy
+Allow: /returns-refunds
+
+# Disallow private user & administrative panels
+Disallow: /admin
+Disallow: /checkout
+Disallow: /cart
+Disallow: /wishlist
+Disallow: /orders
+Disallow: /login
+Disallow: /api/
+
+Sitemap: /sitemap.xml

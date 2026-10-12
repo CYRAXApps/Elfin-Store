@@ -1,0 +1,8 @@
+{
+  "name": "ELECTRO STORE",
+  "description": "A premium responsive e-commerce website for electronics, smart devices, and accessories.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

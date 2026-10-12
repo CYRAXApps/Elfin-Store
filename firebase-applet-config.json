@@ -1,0 +1,12 @@
+{
+  "projectId": "elfin-store",
+  "appId": "1:953996496561:web:e5c35e6cfc051b2ae21c90",
+  "apiKey": "AIzaSyCuYvQHEcg8ZQxILS3K3Db27ubO-HONej8",
+  "authDomain": "elfin-store.firebaseapp.com",
+  "firestoreDatabaseId": "(default)",
+  "storageBucket": "elfin-store.firebasestorage.app",
+  "messagingSenderId": "953996496561",
+  "measurementId": "G-W3MWB2RJYJ",
+  "oAuthClientId": "224049338577-6fq0b6np0hrj2imo8bp7u40qot2tca74.apps.googleusercontent.com",
+  "recaptchaSiteKey": ""
+}

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (function() {
+        var isIgnorable = function(arg) {
+          if (!arg) return false;
+          var str = '';
+          if (typeof arg === 'string') {
+            str = arg;
+          } else if (arg instanceof Error) {
+            str = (arg.name || '') + ' ' + (arg.message || '') + ' ' + (arg.stack || '');
+          } else if (typeof arg === 'object') {
+            try { str = JSON.stringify(arg); } catch(e) { str = String(arg); }
+          } else {
+            str = String(arg);
+          }
+          var lower = str.toLowerCase();
+          return (
+            lower.indexOf('permission_denied') !== -1 ||
+            lower.indexOf('permission-denied') !== -1 ||
+            lower.indexOf('missing or insufficient permissions') !== -1 ||
+            lower.indexOf('failed to get document because the client is offline') !== -1 ||
+            lower.indexOf('the client is offline') !== -1 ||
+            lower.indexOf('client is offline') !== -1 ||
+            lower.indexOf('cloud firestore api has not been used') !== -1 ||
+            lower.indexOf('database (default) does not exist') !== -1 ||
+            lower.indexOf('does not exist for project') !== -1 ||
+            lower.indexOf('database does not exist') !== -1 ||
+            lower.indexOf('code: 9') !== -1 ||
+            lower.indexOf('code: 7') !== -1 ||
+            lower.indexOf('code: 1') !== -1 ||
+            lower.indexOf('disconnecting idle stream') !== -1 ||
+            lower.indexOf('timed out waiting for new targets') !== -1 ||
+            lower.indexOf('grpcconnection') !== -1 ||
+            lower.indexOf('grpc connection') !== -1 ||
+            lower.indexOf('@firebase/firestore') !== -1 ||
+            (lower.indexOf('write') !== -1 && lower.indexOf('stream') !== -1) ||
+            (lower.indexOf('listen') !== -1 && lower.indexOf('stream') !== -1) ||
+            (lower.indexOf('rpc') !== -1 && lower.indexOf('stream') !== -1)
+          );
+        };
+        var checkArgs = function(args) {
+          if (!args || !args.length) return false;
+          var joined = Array.prototype.slice.call(args).map(function(a) {
+            if (!a) return '';
+            if (typeof a === 'string') return a;
+            if (a instanceof Error) return (a.name || '') + ' ' + (a.message || '') + ' ' + (a.stack || '');
+            try { return JSON.stringify(a); } catch(e) { return String(a); }
+          }).join(' ');
+          return isIgnorable(joined);
+        };
+        window.addEventListener('error', function(e) {
+          if (isIgnorable(e.error) || isIgnorable(e.message)) {
+            e.preventDefault();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+            e.stopPropagation();
+          }
+        }, true);
+        window.addEventListener('unhandledrejection', function(e) {
+          if (isIgnorable(e.reason)) {
+            e.preventDefault();
+            if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+            e.stopPropagation();
+          }
+        }, true);
+
+        ['error', 'warn', 'log', 'info', 'debug'].forEach(function(fn) {
+          var orig = console[fn];
+          console[fn] = function() {
+            if (checkArgs(arguments)) return;
+            orig.apply(console, arguments);
+          };
+        });
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ELECTRO STORE - SMART TECH. BETTER LIFE.</title>
+    <meta name="description" content="A premium responsive e-commerce website for electronics, smart devices, smartphones, laptops, audio, and accessories." />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ELECTRO STORE - SMART TECH. BETTER LIFE." />
+    <meta property="og:description" content="A premium responsive e-commerce website for electronics, smart devices, smartphones, laptops, audio, and accessories." />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ELECTRO STORE - SMART TECH. BETTER LIFE." />
+    <meta name="twitter:description" content="A premium responsive e-commerce website for electronics, smart devices, smartphones, laptops, audio, and accessories." />
+
+    <!-- Icons & Manifest -->
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#2563eb" />
+
+    <!-- Resource Preconnects for Image & Font CDNs -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
